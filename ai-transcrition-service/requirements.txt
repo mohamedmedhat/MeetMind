@@ -1,0 +1,6 @@
+fastapi
+uvicorn
+confluent-kafka
+python-dotenv
+pydantic
+whisper @ git+https://github.com/openai/whisper.git  # or other lib
