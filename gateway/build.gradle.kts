@@ -5,7 +5,6 @@ plugins {
 	kotlin("plugin.spring") version "1.9.25"
 	id("org.springframework.boot") version "3.5.3"
 	id("io.spring.dependency-management") version "1.1.7"
-	id("com.netflix.dgs.codegen") version "7.0.3"
 	id("com.google.protobuf") version "0.9.4"
 }
 
@@ -29,8 +28,9 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-actuator")
 	implementation("org.springframework.boot:spring-boot-starter-graphql")
 	implementation("org.springframework.boot:spring-boot-starter-security")
-	implementation("io.jsonwebtoken:jjwt:0.9.1")
-	implementation("io.jsonwebtoken:jjwt-jackson:0.11.5")
+	implementation("io.jsonwebtoken:jjwt-api:0.11.5")
+    runtimeOnly("io.jsonwebtoken:jjwt-impl:0.11.5")
+    runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.11.5")
 	implementation("javax.xml.bind:jaxb-api:2.3.1")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("io.grpc:grpc-services")
@@ -59,12 +59,6 @@ kotlin {
 	compilerOptions {
 		freeCompilerArgs.addAll("-Xjsr305=strict")
 	}
-}
-
-tasks.generateJava {
-	schemaPaths.add("${projectDir}/src/main/resources/graphql-client")
-	packageName = "com.mohamed.gateway.codegen"
-	generateClient = true
 }
 
 protobuf {
