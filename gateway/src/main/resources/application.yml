@@ -1,0 +1,49 @@
+spring:
+  application:
+    name: gateway
+  cloud:
+    gateway:
+      routes:
+        - id: auth-service
+          uri: lb://auth-service
+          predicates:
+            - Path=/auth/**
+        - id: upload-service
+          uri: lb://upload-service
+          predicates:
+            - Path=/upload/**
+        - id: ai_transcrition-service
+          uri: lb://ai_transcrition-service
+          predicates:
+            - Path=/ai_transcrition/**
+        - id: ai_summarization-service
+          uri: lb://ai_summarization-service
+          predicates:
+            - Path=/ai_summarization/**
+        - id: graphql
+          uri: lb://graphql
+          predicates:
+            - Path=/graphql/**
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      default:
+        register-health-indicator: true
+        slidingWindowSize: 10
+        minimumNumberOfCalls: 5
+        permittedNumberOfCallsInHalfOpenState: 3
+        waitDurationInOpenState: 10000ms
+        failureRateThreshold: 50
+        eventConsumerBufferSize: 10
+
+server:
+  port: 8080
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    preferIpAddress: true
+    instanceId: ${spring.application.name}:${spring.application.instance_id:${random.value}}
