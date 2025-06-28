@@ -1,0 +1,36 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: auth-service
+          uri: lb://auth-service
+          predicates:
+            - Path=/auth/**
+          filters:
+              name: CircuitBreaker
+              args:
+                name: authServiceCircuitBreaker
+                fallbackUri: forward:/fallback/auth
+
+        - id: upload-service
+          uri: lb://upload-service
+          predicates:
+            - Path=/upload/**
+
+
+        - id: ai_transcrition-service
+          uri: lb://ai_transcrition-service
+          predicates:
+            - Path=/ai_transcrition/**
+
+
+        - id: ai_summarization-service
+          uri: lb://ai_summarization-service
+          predicates:
+            - Path=/ai_summarization/**
+
+
+        - id: graphql
+          uri: lb://graphql
+          predicates:
+            - Path=/graphql/**
