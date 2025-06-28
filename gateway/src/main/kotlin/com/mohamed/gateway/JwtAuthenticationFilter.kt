@@ -10,11 +10,15 @@ import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.security.Keys
+import org.springframework.beans.factory.annotation.Value
 import java.io.IOException
 
 
 @Component
 class JwtAuthenticationFilter : OncePerRequestFilter() {
+
+    @Value("\${jwt.secret-key}")
+    private  lateinit var secretKey: String
 
     @Throws(ServletException::class, IOException::class)
     override fun doFilterInternal(
@@ -27,7 +31,7 @@ class JwtAuthenticationFilter : OncePerRequestFilter() {
             val token = authHeader.substring(7)
             try {
                 val claims = Jwts.parserBuilder()
-                    .setSigningKey(Keys.hmacShaKeyFor("your-secret-key".toByteArray()))
+                    .setSigningKey(Keys.hmacShaKeyFor(secretKey.toByteArray()))
                     .build()
                     .parseClaimsJws(token)
                     .body
