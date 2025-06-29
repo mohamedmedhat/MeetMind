@@ -10,6 +10,7 @@ import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.security.Keys
+import kotlinx.coroutines.runBlocking
 import org.springframework.beans.factory.annotation.Value
 import java.io.IOException
 
@@ -25,7 +26,7 @@ class JwtAuthenticationFilter : OncePerRequestFilter() {
         request: HttpServletRequest,
         response: HttpServletResponse,
         filterChain: FilterChain
-    ) {
+    ) = runBlocking{
         val authHeader = request.getHeader("Authorization")
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             val token = authHeader.substring(7)
@@ -44,7 +45,7 @@ class JwtAuthenticationFilter : OncePerRequestFilter() {
                 SecurityContextHolder.getContext().authentication = authentication
             } catch (e: Exception) {
                 response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid JWT token")
-                return
+                return@runBlocking
             }
         }
         filterChain.doFilter(request, response)

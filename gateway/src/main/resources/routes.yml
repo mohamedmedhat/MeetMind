@@ -16,18 +16,44 @@ spring:
           uri: lb://upload-service
           predicates:
             - Path=/upload/**
+          filters:
+            name: CircuitBreaker
+            args:
+              name: uploadServiceCircuitBreaker
+              fallbackUri: forward:/fallback/upload
 
 
         - id: ai_transcrition-service
           uri: lb://ai_transcrition-service
           predicates:
             - Path=/ai_transcrition/**
+          filters:
+            name: CircuitBreaker
+            args:
+              name: transcriptionServiceCircuitBreaker
+              fallbackUri: forward:/fallback/transcription
 
 
         - id: ai_summarization-service
           uri: lb://ai_summarization-service
           predicates:
             - Path=/ai_summarization/**
+          filters:
+            name: CircuitBreaker
+            args:
+              name: summarizeServiceCircuitBreaker
+              fallbackUri: forward:/fallback/summarize
+
+
+        - id: notification-service
+          uri: lb://notification-service
+          predicates:
+             - Path=/notification/**
+          filters:
+            name: CircuitBreaker
+            args:
+              name: notificationServiceCircuitBreaker
+              fallbackUri: forward:/fallback/notification
 
 
         - id: graphql
