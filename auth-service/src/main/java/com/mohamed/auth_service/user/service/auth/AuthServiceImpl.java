@@ -1,4 +1,4 @@
-package com.mohamed.auth_service.service.auth;
+package com.mohamed.auth_service.user.service.auth;
 
 import org.springframework.stereotype.Service;
 

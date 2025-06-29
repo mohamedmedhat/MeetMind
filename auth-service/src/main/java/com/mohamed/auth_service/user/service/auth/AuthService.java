@@ -1,4 +1,4 @@
-package com.mohamed.auth_service.service.auth;
+package com.mohamed.auth_service.user.service.auth;
 
 import com.mohamed.auth_service.dto.request.LoginRequestDto;
 import com.mohamed.auth_service.dto.request.UserRequestDto;

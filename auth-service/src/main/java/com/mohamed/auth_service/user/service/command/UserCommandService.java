@@ -1,4 +1,4 @@
-package com.mohamed.auth_service.service.command;
+package com.mohamed.auth_service.user.service.command;
 
 import java.util.UUID;
 

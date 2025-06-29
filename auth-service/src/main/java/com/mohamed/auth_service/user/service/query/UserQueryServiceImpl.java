@@ -1,15 +1,13 @@
-package com.mohamed.auth_service.service.query;
+package com.mohamed.auth_service.user.service.query;
 
 import java.util.UUID;
 
-import com.mohamed.auth_service.UserMapper;
-import com.mohamed.auth_service.UserRepository;
+import com.mohamed.auth_service.user.UserMapper;
+import com.mohamed.auth_service.user.UserRepository;
 import com.mohamed.auth_service.exception.UserNotFoundException;
 
 import java.util.Arrays;
 
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.mohamed.auth_service.dto.response.UserResponseDto;

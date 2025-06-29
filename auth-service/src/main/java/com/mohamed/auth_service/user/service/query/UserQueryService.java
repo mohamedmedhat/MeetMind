@@ -1,4 +1,4 @@
-package com.mohamed.auth_service.service.query;
+package com.mohamed.auth_service.user.service.query;
 
 import com.mohamed.auth_service.dto.response.UserResponseDto;
 import reactor.core.publisher.Flux;

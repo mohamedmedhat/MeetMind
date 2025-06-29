@@ -1,7 +1,5 @@
-package com.mohamed.auth_service;
+package com.mohamed.auth_service.user;
 
-import jakarta.ws.rs.PathParam;
-import lombok.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,9 +8,9 @@ import com.mohamed.auth_service.dto.request.LoginRequestDto;
 import com.mohamed.auth_service.dto.request.UserRequestDto;
 import com.mohamed.auth_service.dto.response.LoginResponseDto;
 import com.mohamed.auth_service.dto.response.UserResponseDto;
-import com.mohamed.auth_service.service.auth.AuthService;
-import com.mohamed.auth_service.service.command.UserCommandService;
-import com.mohamed.auth_service.service.query.UserQueryService;
+import com.mohamed.auth_service.user.service.auth.AuthService;
+import com.mohamed.auth_service.user.service.command.UserCommandService;
+import com.mohamed.auth_service.user.service.query.UserQueryService;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;

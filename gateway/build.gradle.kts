@@ -23,24 +23,28 @@ repositories {
 
 extra["springCloudVersion"] = "2025.0.0"
 extra["springGrpcVersion"] = "0.8.0"
+extra["jaxbApiVersion"] = "2.3.1"
+extra["kotlinCoroutinesVersion"] = "1.7.1"
+extra["jjwtVersion"] = "0.11.5"
 
 dependencies {
-	implementation("org.springframework.boot:spring-boot-starter-actuator")
-	implementation("org.springframework.boot:spring-boot-starter-graphql")
-	implementation("org.springframework.boot:spring-boot-starter-security")
-	implementation("io.jsonwebtoken:jjwt-api:0.11.5")
-    runtimeOnly("io.jsonwebtoken:jjwt-impl:0.11.5")
-    runtimeOnly("io.jsonwebtoken:jjwt-jackson:0.11.5")
-	implementation("javax.xml.bind:jaxb-api:2.3.1")
+	implementation("javax.xml.bind:jaxb-api:${property("jaxbApiVersion")}")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("io.grpc:grpc-services")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
-	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1")
-	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:1.7.1")
-	implementation("org.springframework.cloud:spring-cloud-starter-gateway-server-webmvc")
+	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:${property("kotlinCoroutinesVersion")}")
+	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-jvm:${property("kotlinCoroutinesVersion")}")
+	implementation("org.springframework.cloud:spring-cloud-starter-gateway")
 	implementation("org.springframework.cloud:spring-cloud-starter-netflix-eureka-client")
 	implementation("org.springframework.cloud:spring-cloud-starter-circuitbreaker-resilience4j")
 	implementation("org.springframework.grpc:spring-grpc-server-web-spring-boot-starter")
+	implementation("org.springframework.boot:spring-boot-starter-actuator")
+	implementation("org.springframework.boot:spring-boot-starter-graphql")
+	implementation("org.springframework.boot:spring-boot-starter-security")
+	implementation("org.springframework.boot:spring-boot-starter-webflux")
+	implementation("io.jsonwebtoken:${property("jjwtVersion")}")
+    runtimeOnly("io.jsonwebtoken:${property("jjwtVersion")}")
+    runtimeOnly("io.jsonwebtoken:${property("jjwtVersion")}")
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")

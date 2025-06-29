@@ -1,4 +1,4 @@
-package com.mohamed.auth_service;
+package com.mohamed.auth_service.user;
 
 import java.util.UUID;
 
