@@ -3,22 +3,7 @@ spring:
         name: auth-service
     lifecycle:
         timeout-per-shutdown-phase: 30s
-    datasource:
-        driver-class-name: org.postgresql.Driver
-    jpa:
-        properties:
-            hibernate:
-                default_batch_size: 50
-                order_inserts: true
-                order_updates: true
-                jdbc:
-                    batch_size: 50
-        hikari:
-            maximum-pool-size: 10
-            minimum-idle: 2
-            idle-timeout: 30000
-            connection-timeout: 30000
-            max-lifetime: 1800000
+
     profiles:
         active : dev
     cache:

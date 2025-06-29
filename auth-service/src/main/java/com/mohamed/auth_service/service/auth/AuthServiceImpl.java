@@ -8,31 +8,32 @@ import com.mohamed.auth_service.dto.response.LoginResponseDto;
 import com.mohamed.auth_service.dto.response.UserResponseDto;
 
 import lombok.RequiredArgsConstructor;
+import reactor.core.publisher.Mono;
 
 @Service
 @RequiredArgsConstructor
 public class AuthServiceImpl implements AuthService {
 
     @Override
-    public UserResponseDto register(UserRequestDto req) {
+    public Mono<UserResponseDto> register(UserRequestDto req) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'register'");
     }
 
     @Override
-    public LoginResponseDto login(LoginRequestDto req) {
+    public Mono<LoginResponseDto> login(LoginRequestDto req) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'login'");
     }
 
     @Override
-    public String refreshToken(String token) {
+    public Mono<String> refreshToken(String token) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'refreshToken'");
     }
 
     @Override
-    public void logout(String token) {
+    public Mono<Void> logout(String token) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'logout'");
     }

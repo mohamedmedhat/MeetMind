@@ -4,17 +4,18 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import reactor.core.publisher.Mono;
 
 @RestControllerAdvice
 public class GlobalExceptions {
 
     @ExceptionHandler({UserNotFoundException.class})
-    public ResponseEntity<String> handleUserNotFound(UserNotFoundException ex) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+    public Mono<ResponseEntity<String>> handleUserNotFound(UserNotFoundException ex) {
+        return Mono.just(ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage()));
     }
 
     @ExceptionHandler({BadCredentialsException.class})
-    public ResponseEntity<String> handleBadCredentials(BadCredentialsException ex) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage()); 
+    public Mono<ResponseEntity<String>> handleBadCredentials(BadCredentialsException ex) {
+        return Mono.just( ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage()));
     }
 }

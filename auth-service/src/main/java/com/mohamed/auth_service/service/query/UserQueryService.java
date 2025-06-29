@@ -1,12 +1,17 @@
 package com.mohamed.auth_service.service.query;
 
 import com.mohamed.auth_service.dto.response.UserResponseDto;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
+
 import java.util.UUID;
 
 public interface UserQueryService {
-    UserResponseDto getUser(UUID id);
+    Mono<UserResponseDto> getUser(UUID id);
 
-    UserResponseDto[] getAllUsers(int page, int size);
+    Flux<UserResponseDto> getUsersByIds(UUID[] id);
 
-    UserResponseDto getUserByEmail(String email);
+    Flux<UserResponseDto> getAllUsers(int page, int size);
+
+    Mono<UserResponseDto> getUserByEmail(String email);
 }
