@@ -54,8 +54,25 @@ public class JwtUtil {
                 .compact();
     }
 
-    public Boolean validateToken(String token, UserDetails userDetails) {
-        final String email = extractEmail(token);
-        return (email.equals(userDetails.getUsername()) && !isTokenExpired(token));
+    public String generateRefreshToken(User userDetails) {
+        return Jwts.builder()
+                .setSubject(userDetails.getEmail())
+                .claim("roles", userDetails.getRoles().stream()
+                        .map(role -> "ROLE_" + role)  // Add "ROLE_" prefix
+                        .collect(Collectors.toSet()))
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(System.currentTimeMillis() + 2* expirationTime))
+                .signWith(SignatureAlgorithm.HS256, secretKey)
+                .compact();
     }
+
+    public boolean validateToken(String token) {
+        try {
+            extractAllClaims(token);
+            return !isTokenExpired(token);
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
 }

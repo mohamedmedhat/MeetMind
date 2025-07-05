@@ -1,7 +1,10 @@
 package com.mohamed.auth_service.user;
 
+import com.mohamed.auth_service.refreshToken.dto.response.RefreshTokenResponseDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.server.reactive.ServerHttpResponse;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import com.mohamed.auth_service.dto.request.LoginRequestDto;
@@ -20,7 +23,7 @@ import reactor.core.publisher.Mono;
 
 import java.util.UUID;
 
-
+@Validated
 @RestController
 @RequestMapping("api/v1/users")
 @RequiredArgsConstructor
@@ -36,20 +39,20 @@ public class UserController {
     }
 
     @PostMapping("/auth/login")
-    public Mono<ResponseEntity<LoginResponseDto>> login(@Valid @RequestBody LoginRequestDto req) {
-        return this.authService.login(req)
+    public Mono<ResponseEntity<LoginResponseDto>> login(@Valid @RequestBody LoginRequestDto req, ServerHttpResponse response) {
+        return this.authService.login(req, response)
                 .map(ResponseEntity::ok);
     }
 
     @PostMapping("/auth/refresh-token")
-    public Mono<ResponseEntity<String>> refreshToken(@Valid @NotBlank String token) {
-        return this.authService.refreshToken(token)
+    public Mono<ResponseEntity<RefreshTokenResponseDto>> refreshToken(@RequestParam("token") @Valid @NotBlank String token, ServerHttpResponse response) {
+        return this.authService.refreshToken(token, response)
                 .map(ResponseEntity::ok);
     }
 
     @PostMapping("auth/logout")
-    public Mono<ResponseEntity<Void>> logout(@RequestParam("token") String token) {
-        return this.authService.logout(token)
+    public Mono<ResponseEntity<Void>> logout(@RequestParam("token") String token, ServerHttpResponse response) {
+        return this.authService.logout(token, response)
                 .map(res -> ResponseEntity.noContent().build());
     }
 

@@ -2,6 +2,9 @@ package com.mohamed.auth_service.user.service.command;
 
 import java.util.UUID;
 
+import com.mohamed.auth_service.user.User;
+import com.mohamed.auth_service.user.UserMapper;
+import com.mohamed.auth_service.user.UserRepository;
 import org.springframework.stereotype.Service;
 
 import com.mohamed.auth_service.dto.request.UserRequestDto;
@@ -13,28 +16,34 @@ import reactor.core.publisher.Mono;
 
 @Service
 @RequiredArgsConstructor
-public class UserCommandServiceImpl implements UserCommandService{
+public class UserCommandServiceImpl implements UserCommandService {
+    private final UserRepository userRepository;
+    private final UserMapper userMapper;
 
     @Override
     public Flux<UserResponseDto> createUsers(UserRequestDto[] requestDtos) {
-        return null;
+        User[] users = this.userMapper.toUsers(requestDtos);
+        return this.userRepository.saveAll(users)
+                .map(userMapper::toUsersResponseDto);
     }
 
     @Override
     public Mono<UserResponseDto> updateUser(UUID id, UserRequestDto req) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updateUser'");
+        Mono<User> user = this.userRepository.findById(id);
+        User updatedUser = this.userMapper.toUpdatedUser(user, req);
+        return this.userRepository.save(updatedUser)
+                .map(userMapper::toUserResponseDto);
     }
 
     @Override
     public Mono<Void> deleteUser(UUID id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteUser'");
+        return this.userRepository.deleteById(id);
     }
 
     @Override
     public Mono<Void> deleteUsers(UUID[] id) {
-        return null;
+        Flux<User> users = this.userRepository.findByIds(id);
+        return this.userRepository.deleteAll(users);
     }
 
 }

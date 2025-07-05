@@ -20,4 +20,6 @@ public interface UserRepository extends R2dbcRepository<User, UUID> {
 
     @Query("SELECT * FROM users LIMIT :limit OFFSET :offset")
     Flux<User> findAllPaged(@Param("limit") int limit, @Param("offset") int offset);
+
+    Flux<User[]> saveAll(User[] users);
 }

@@ -16,6 +16,11 @@ public class GlobalExceptions {
 
     @ExceptionHandler({BadCredentialsException.class})
     public Mono<ResponseEntity<String>> handleBadCredentials(BadCredentialsException ex) {
-        return Mono.just( ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage()));
+        return Mono.just(ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage()));
+    }
+
+    @ExceptionHandler({InvalidTokenException.class})
+    public Mono<ResponseEntity<String>> handleInvalidTokenException(BadCredentialsException ex) {
+        return Mono.just(ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage()));
     }
 }
