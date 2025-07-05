@@ -1,36 +1,60 @@
 spring:
   cloud:
     gateway:
-      routes:
-        - id: auth-service
-          uri: lb://auth-service
-          predicates:
-            - Path=/auth/**
-          filters:
-              name: CircuitBreaker
-              args:
-                name: authServiceCircuitBreaker
-                fallbackUri: forward:/fallback/auth
+      server:
+        webflux:
+          routes:
+            - id: auth-service
+              uri: lb://auth-service
+              predicates:
+                - Path=/auth/**
+              filters:
+                - name: CircuitBreaker
+                  args:
+                    name: authServiceCircuitBreaker
+                    fallbackUri: forward:/fallback/auth
 
-        - id: upload-service
-          uri: lb://upload-service
-          predicates:
-            - Path=/upload/**
+            - id: upload-service
+              uri: lb://upload-service
+              predicates:
+                - Path=/upload/**
+              filters:
+                - name: CircuitBreaker
+                  args:
+                    name: uploadServiceCircuitBreaker
+                    fallbackUri: forward:/fallback/upload
 
+            - id: ai_transcrition-service
+              uri: lb://ai_transcrition-service
+              predicates:
+                - Path=/ai_transcrition/**
+              filters:
+                - name: CircuitBreaker
+                  args:
+                    name: transcriptionServiceCircuitBreaker
+                    fallbackUri: forward:/fallback/transcription
 
-        - id: ai_transcrition-service
-          uri: lb://ai_transcrition-service
-          predicates:
-            - Path=/ai_transcrition/**
+            - id: ai_summarization-service
+              uri: lb://ai_summarization-service
+              predicates:
+                - Path=/ai_summarization/**
+              filters:
+                - name: CircuitBreaker
+                  args:
+                    name: summarizeServiceCircuitBreaker
+                    fallbackUri: forward:/fallback/summarize
 
+            - id: notification-service
+              uri: lb://notification-service
+              predicates:
+                - Path=/notification/**
+              filters:
+                - name: CircuitBreaker
+                  args:
+                    name: notificationServiceCircuitBreaker
+                    fallbackUri: forward:/fallback/notification
 
-        - id: ai_summarization-service
-          uri: lb://ai_summarization-service
-          predicates:
-            - Path=/ai_summarization/**
-
-
-        - id: graphql
-          uri: lb://graphql
-          predicates:
-            - Path=/graphql/**
+            - id: graphql
+              uri: lb://graphql
+              predicates:
+                - Path=/graphql/**

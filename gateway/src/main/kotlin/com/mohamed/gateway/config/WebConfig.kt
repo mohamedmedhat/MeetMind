@@ -2,22 +2,24 @@ package com.mohamed.gateway.config
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import org.springframework.web.servlet.config.annotation.CorsRegistry
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
+import org.springframework.web.cors.CorsConfiguration
+import org.springframework.web.cors.reactive.CorsWebFilter
+import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource
 
 @Configuration
-class WebConfig {
+class CorsGlobalConfig {
 
     @Bean
-    fun corsCOnfiguration(): WebMvcConfigurer {
-        return object : WebMvcConfigurer {
-            override fun addCorsMappings(registry: CorsRegistry) {
-                registry.addMapping("/**")
-                    .allowedOrigins("*") // Adjust this to your needs
-                    .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
-                    .allowedHeaders("*")
-                    .allowCredentials(true)
-            }
+    fun corsWebFilter(): CorsWebFilter {
+        val corsConfig = CorsConfiguration().apply {
+            allowCredentials = true
+            addAllowedOrigin("*") // change this for production
+            addAllowedHeader("*")
+            addAllowedMethod("*")
         }
+
+        val source = UrlBasedCorsConfigurationSource()
+        source.registerCorsConfiguration("/**", corsConfig)
+        return CorsWebFilter(source)
     }
 }

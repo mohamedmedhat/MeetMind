@@ -1,0 +1,9 @@
+spring:
+    r2dbc:
+        url: jdbc:postgresql://postgres:5432/meetmind_db
+        username: meetmind
+        password: meetmind
+
+app:
+    jwt-secret: whrjbfwhrfihrihfri
+    jwt-expiration-ms: 3600000
