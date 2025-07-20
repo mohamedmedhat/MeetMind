@@ -2,7 +2,6 @@
 
 MeetMind is a scalable, event-driven microservices system for real-time **audio transcription**, **AI summarization**, and **user notifications**. Built with a polyglot tech stack (Spring Boot, FastAPI, Gin), it demonstrates modern best practices in microservice architecture, including:
 
-- ✅ **GraphQL & gRPC APIs**
 - ✅ **JWT-based authentication**
 - ✅ **Kafka-powered communication**
 - ✅ **Resilience with Resilience4j**
