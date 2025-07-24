@@ -5,6 +5,8 @@ import java.util.UUID;
 import com.mohamed.auth_service.user.User;
 import com.mohamed.auth_service.user.UserMapper;
 import com.mohamed.auth_service.user.UserRepository;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
 
 import com.mohamed.auth_service.dto.request.UserRequestDto;
